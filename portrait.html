@@ -212,17 +212,12 @@
     }
 
     .bio-text {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
       font-weight: 300;
-      line-height: 1.75;
+      line-height: 1.85;
       color: var(--schwarz);
       max-width: 72ch;
-      /*
-        TEXT EINSETZEN:
-        Einfach den Platzhaltertext unten ersetzen.
-        Absätze mit <p> trennen.
-      */
     }
     .bio-text p + p { margin-top: 1.2em; }
 
@@ -317,7 +312,30 @@
     }
     .lightbox-close:hover { opacity: 1; }
 
-    /* ── FOOTER ─────────────────────────────── */
+    .bio-text a {
+      color: var(--rot-logo);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .bio-text a:hover { border-bottom-color: var(--rot-logo); }
+
+    .cv-btn-wrap { margin-bottom: 2rem; }
+    .cv-btn {
+      display: inline-block;
+      padding: 0.7rem 2rem;
+      border: 1.5px solid var(--rot-logo);
+      color: var(--rot-logo);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cv-btn:hover {
+      background: var(--rot-logo);
+      color: var(--weiss);
+    }
     footer { border-top: 1px solid var(--linie); margin-top: auto; }
     .footer-inner {
       max-width: var(--max-w); margin: 0 auto; padding: 2rem;
@@ -429,22 +447,31 @@
 
     <!-- BIOGRAPHIE -->
     <div class="biographie">
-      <p class="section-label">Biographie</p>
       <div class="bio-text">
-        <!--
-          TEXT EINSETZEN:
-          Einfach diesen Platzhalter durch deinen Biographietext ersetzen.
-          Absätze mit <p>...</p> strukturieren.
-        -->
-        <p>Eva Mann arbeitet als Regisseurin, Sprachlehrerin und Schauspielerin im deutschsprachigen Theaterraum der Schweiz.</p>
-        <p>Hier folgt der weitere biographische Text — Ausbildung, Stationen, Schwerpunkte, Arbeitsweise...</p>
-        <p>Weiterer Absatz nach Bedarf.</p>
+        <p>Eva Mann studierte Schauspielregie (MA) an der <a href="https://www.east15.ac.uk">East 15 Acting School</a> in London und an der Theaterakademie GITIS in Moskau. Sie hat als Regisseurin, Schauspielerin, Autorin und Übersetzerin in der Schweiz, Deutschland, England, den USA und Russland gearbeitet. Aktuell vertieft sie ihre Praxis im Bereich <a href="intimacy-direction.html">Intimacy Direction</a> – sie ist zertifizierte Consent Forward Artist von <a href="https://www.idcprofessionals.com" target="_blank" rel="noopener">IDC Professionals</a>.</p>
+
+        <p>In der freien Szene der Schweiz ist sie regelmäßig als Regisseurin (z. B. Gift &amp; Gnade) oder Schauspielerin (Hase Hase) tätig, sowie dokumentarisch mit dem Kollektiv SinnSpiel. Ein Schwerpunkt ihrer Arbeit liegt auf Inszenierungen mit nichtprofessionellen Darstellenden – etwa bei Freilicht-Spielen (Geierwally, Ein Sommernachtstraum, Mass für Mass) oder bei ambitionierten Texten wie Millers Hexenjagd und Borcherts Draussen vor der Tür.</p>
+
+        <p>2024 war Eva Mann für das Nidwaldner Museum tätig, wo sie den interaktiven Teil der Ausstellung <a href="https://nidwaldner-museum.ch/ausstellungen/alles-theater/" target="_blank" rel="noopener"><em>Alles Theater – Spiellust auf der Laienbühne</em></a> konzipierte und umsetzte.</p>
+
+        <p>Sie arbeitet zudem regelmäßig als <a href="texte.html">Übersetzerin</a>, mit besonderem Interesse an der Übertragung zwischen Theatertraditionen. So hat sie mehrere Shakespeare-Stücke für Laiengruppen in Mundart übertragen und inszeniert. Im Bereich zeitgenössische Dramatik verantwortete sie als Übersetzerin und Regisseurin die deutschsprachigen Erstaufführungen von Charlotte Jones' <em>Luftschwimmen</em> (Airswimming), Gina Gionfriddos <em>Rapture, Blister, Burn</em> sowie Simon Beaufoys <em>The Full Monty</em>.</p>
+
+        <p>Ihre Beschäftigung mit Kulturtransfer und interkulturellen Theaterformen zeigt sich u.a. in ihrer Zusammenarbeit mit dem kenianischen Regisseur Washington Obwanda (Forum Theatre Nairobi) sowie in ihrer langjährigen Auseinandersetzung mit dem jiddischen Theater.</p>
+
+        <p>Eva Mann war Stipendiatin des Lincoln Center Directors Lab New York (2014) und ist Atelier X-Stipendiatin der Albert Köchlin Stiftung (2025). Für das Projekt <em>Vogelfrey</em> gewann sie 2021 den Zentralschweizer Theatertexte-Wettbewerb. 2022 wurde der von ihr dramaturgisch begleitete Theaterspaziergang <em>Ein Hut, ein Stock, ein Regenschirm</em> mit dem Landestheaterpreis Baden-Württemberg für Amateurtheater ausgezeichnet. 2023 erschienen Texte von ihr in der Rubrik „Persönlich" des Urner Wochenblatts.</p>
+
+        <p>Als Schauspielerin war sie u.a. als Köstliche Quelle an der Studiobühne des Opernhauses Zürich (mit Anne-Marie Blanc), am Theater Stadelhofen (<em>Tumult im Narrenhaus</em>) und bei den Murten Classics (<em>L'Histoire du Soldat</em>) zu sehen.</p>
+
+        <p>Eva Mann hat einen Magister Artium in Germanistik, Philosophie und Altertumswissenschaften (Basel &amp; Tübingen) und ist als Dozentin tätig, u.a. an der East 15 Acting School, der Universität Basel und im Rahmen von Lehrerweiterbildungen (SATE/WBZ). Sie ist Mitglied von <a href="https://www.tpunkt.ch/" target="_blank" rel="noopener">t. Theaterschaffende Schweiz</a> sowie <a href="https://www.a-d-s.ch/" target="_blank" rel="noopener">A*dS – Autorinnen und Autoren der Schweiz</a>.</p>
       </div>
     </div>
 
     <!-- ARTIKEL-KACHELN -->
     <div class="artikel-section">
       <p class="section-label">Presse &amp; Artikel</p>
+      <div class="cv-btn-wrap">
+        <a href="dokumente/eva-mann-cv.pdf" download class="cv-btn">CV herunterladen</a>
+      </div>
       <div class="artikel-grid">
 
         <!--
