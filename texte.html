@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Texte — Eva Mann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --creme:      #f7f0eb;
+      --creme-dark: #efe6de;
+      --nav-bg:     #1e1c1a;
+      --nav-hover:  #2e2b28;
+      --rot:        #8b1a1a;
+      --rot-logo:   #913521;
+      --schwarz:    #1a1a1a;
+      --grau:       #6b6460;
+      --linie:      #d4ccc0;
+      --weiss:      #f5f0e8;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--creme);
+      color: var(--schwarz);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ══ HEADER ══ */
+    .site-header { position: sticky; top: 0; z-index: 100; }
+    .logo-bar {
+      background: var(--creme);
+      padding: 1.4rem 2rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--linie);
+    }
+    .logo-bar a { display: inline-block; }
+    .logo-name {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--rot-logo);
+      display: block;
+      line-height: 1.15;
+      transition: opacity 0.2s;
+    }
+    .logo-bar a:hover .logo-name { opacity: 0.8; }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--grau);
+      display: block;
+      margin-top: 0.2rem;
+    }
+    .nav-bar { background: var(--nav-bg); }
+    .nav-desktop { max-width: var(--max-w); margin: 0 auto; padding: 0 1rem; }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav-list > li > a {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--weiss);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-list > li > a:hover { background: var(--nav-hover); color: #e8c8a0; }
+    .nav-list > li > a.active {
+      background: var(--nav-hover);
+      color: #e8c8a0;
+      box-shadow: inset 0 -2px 0 var(--rot);
+    }
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 0.85rem 1.2rem;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--weiss); transition: all 0.28s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-drawer { display: none; background: var(--nav-bg); border-top: 1px solid #2e2b28; }
+    .mobile-drawer.open { display: block; }
+    .mobile-drawer > ul { list-style: none; }
+    .mobile-drawer > ul > li { border-bottom: 1px solid #2a2826; }
+    .mobile-drawer > ul > li > a {
+      display: block; width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.76rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--weiss); transition: color 0.18s;
+    }
+    .mobile-drawer > ul > li > a:hover { color: #e8c8a0; }
+
+    /* ══ INHALT ══ */
+    main { flex: 1; }
+
+    .texte-wrap {
+      max-width: var(--max-w);
+      margin: 3rem auto 5rem;
+      padding: 0 3rem;
+    }
+
+    /* Sektions-Label */
+    .sektion-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rot-logo);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── TEXTE-LISTE ── */
+    .texte-liste {
+      list-style: none;
+      margin-bottom: 4rem;
+    }
+
+    .texte-liste li {
+      border-top: 1px solid var(--linie);
+      padding: 1.2rem 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .texte-liste li:last-child { border-bottom: 1px solid var(--linie); }
+
+    .text-titel {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--rot-logo);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    .text-titel a {
+      color: var(--rot-logo);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: transparent;
+      transition: text-decoration-color 0.2s;
+    }
+    .text-titel a:hover { text-decoration-color: var(--rot-logo); }
+
+    .text-beschreibung {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--grau);
+      line-height: 1.6;
+    }
+
+    .text-typ {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--linie);
+      white-space: nowrap;
+    }
+
+    /* ── KOLUMNEN-KACHELN ── */
+    .kolumnen-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .kolumne-kachel {
+      cursor: pointer;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--creme-dark);
+      position: relative;
+    }
+    .kolumne-kachel img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease;
+    }
+    .kolumne-kachel:hover img { transform: scale(1.04); }
+
+    .kolumne-kachel-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem; color: var(--linie);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1rem; text-align: center;
+    }
+
+    .kolumne-kachel::after {
+      content: '↗';
+      position: absolute;
+      inset: 0;
+      background: rgba(145, 53, 33, 0.12);
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .kolumne-kachel:hover::after { opacity: 1; }
+
+    .kolumne-titel {
+      margin-top: 0.6rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--schwarz);
+      line-height: 1.3;
+    }
+
+    .kolumne-datum {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--grau);
+      margin-top: 0.15rem;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      color: white; font-size: 2rem;
+      cursor: pointer; line-height: 1;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--linie); margin-top: auto; }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--rot-logo); }
+    .footer-copy { font-size: 0.72rem; color: var(--grau); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grau); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--rot); }
+    .footer-linkedin { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--grau); transition: color 0.2s; }
+    .footer-linkedin:hover { color: var(--rot); }
+    .footer-linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-desktop { display: none; }
+      .hamburger { display: flex; }
+      .nav-bar { display: flex; justify-content: flex-end; }
+      .texte-wrap { padding: 0 1.5rem; }
+      .kolumnen-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .logo-name { font-size: 1.65rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .texte-liste li { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
+    <div class="logo-bar">
+      <a href="index.html">
+        <span class="logo-name">Eva Mann</span>
+        <span class="logo-sub">Regie&nbsp;|&nbsp;Sprache&nbsp;|&nbsp;Spiel</span>
+      </a>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-desktop">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aktuell.html">Aktuell</a></li>
+          <li><a href="portrait.html">Portrait</a></li>
+          <li><a href="inszenierungen.html">Inszenierungen</a></li>
+          <li><a href="projekte.html">Projekte</a></li>
+          <li><a href="spiel.html">Spiel</a></li>
+          <li><a href="texte.html" class="active">Texte</a></li>
+          <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+          <li><a href="medien.html">Medien</a></li>
+          <li><a href="presse.html">Presse</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aktuell.html">Aktuell</a></li>
+        <li><a href="portrait.html">Portrait</a></li>
+        <li><a href="inszenierungen.html">Inszenierungen</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="spiel.html">Spiel</a></li>
+        <li><a href="texte.html">Texte</a></li>
+        <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+        <li><a href="medien.html">Medien</a></li>
+        <li><a href="presse.html">Presse</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+    <div class="texte-wrap">
+
+      <!-- SEKTION 1: Theaterstücke & Übersetzungen -->
+      <p class="sektion-label">Theaterstücke &amp; Übersetzungen</p>
+      <ul class="texte-liste">
+
+        <li>
+          <div>
+            <div class="text-titel">
+              <a href="https://www.nw.ch/aktuellesinformationen/85613" target="_blank" rel="noopener">Vogelfrey. Eine Fiktion über den Nidwaldner Flugplatz</a>
+            </div>
+            <div class="text-beschreibung">Gewinnertext Zentralschweizer Theatertexte-Wettbewerb 2021 | Uraufführung Theater Buochs 2024</div>
+          </div>
+          <div class="text-typ">Originalstück</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Das cha bi eus nid passiere</div>
+            <div class="text-beschreibung">Schauspiel nach dem Roman «It Can't Happen Here» von Sinclair Lewis | Auftragsarbeit für die Theatergruppe Bünzen</div>
+          </div>
+          <div class="text-typ">Bearbeitung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">
+              <a href="https://www.theaterverlage.ch/images/leseproben_onlinekatalog/Geierwally.pdf" target="_blank" rel="noopener">Geierwally</a>
+            </div>
+            <div class="text-beschreibung">Freilichtspiel nach dem Roman von Wilhelmine von Hillern | Auftragsarbeit für die Bühne Schwarzenburg | Verlegt beim Elgg Theaterverlag</div>
+          </div>
+          <div class="text-typ">Bearbeitung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Der Tag vor Morgen</div>
+            <div class="text-beschreibung">Theaterspaziergang | Auftragsarbeit für die Kulisse Zug</div>
+          </div>
+          <div class="text-typ">Originalstück</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Die Welt ist eine Orange — Sternguckergeschichten</div>
+            <div class="text-beschreibung">Sammlung von Kurzstücken | Auftragsarbeit für die Kulisse Zug</div>
+          </div>
+          <div class="text-typ">Originalstück</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">The Full Monty</div>
+            <div class="text-beschreibung">Übersetzung des Theaterstücks von Simon Beaufoy | Auftragsarbeit für die Weinlandbühne Andelfingen</div>
+          </div>
+          <div class="text-typ">Übersetzung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Verliebt, Verbüült, Verbrännt</div>
+            <div class="text-beschreibung">Übersetzung von Gina Gionfriddos «Rapture, Blister, Burn» | Auftragsarbeit für das Volkstheater Wädenswil</div>
+          </div>
+          <div class="text-typ">Übersetzung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Luftschwimmen</div>
+            <div class="text-beschreibung">Übersetzung von «Airswimming» von Charlotte Jones</div>
+          </div>
+          <div class="text-typ">Übersetzung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">The Most Dangerous Toy</div>
+            <div class="text-beschreibung">Stückentwicklung mit dokumentarischem Material | Playades | Edinburgh Fringe</div>
+          </div>
+          <div class="text-typ">Stückentwicklung</div>
+        </li>
+
+        <li>
+          <div>
+            <div class="text-titel">Blue Beard Babes</div>
+            <div class="text-beschreibung">Stückentwicklung mit dem <a href="http://www.playades.ch" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--linie);">Playades</a> Ensemble | Edinburgh Fringe</div>
+          </div>
+          <div class="text-typ">Stückentwicklung</div>
+        </li>
+
+      </ul>
+
+      <!-- SEKTION 2: Kolumnen -->
+      <p class="sektion-label">Kolumnen im Urner Wochenblatt</p>
+      <div class="kolumnen-grid">
+
+        <div>
+          <div class="kolumne-kachel" onclick="openLightbox('kolumnen/uw1.jpg')">
+            <!--
+              BILD EINSETZEN:
+              <img src="kolumnen/uw1.jpg" alt="Theatrale Spurensuche" />
+            -->
+            <div class="kolumne-kachel-placeholder">uw1.jpg</div>
+          </div>
+          <div class="kolumne-titel">Theatrale Spurensuche</div>
+          <div class="kolumne-datum">Urner Wochenblatt, 23.09.2023</div>
+        </div>
+
+        <div>
+          <div class="kolumne-kachel" onclick="openLightbox('kolumnen/uw2.jpg')">
+            <!--
+              BILD EINSETZEN:
+              <img src="kolumnen/uw2.jpg" alt="Premierenkoller" />
+            -->
+            <div class="kolumne-kachel-placeholder">uw2.jpg</div>
+          </div>
+          <div class="kolumne-titel">Premierenkoller</div>
+          <div class="kolumne-datum">Urner Wochenblatt, 15.07.2023</div>
+        </div>
+
+        <div>
+          <div class="kolumne-kachel" onclick="openLightbox('kolumnen/uw3.jpg')">
+            <!--
+              BILD EINSETZEN:
+              <img src="kolumnen/uw3.jpg" alt="Auf wen es schliesslich ankommt" />
+            -->
+            <div class="kolumne-kachel-placeholder">uw3.jpg</div>
+          </div>
+          <div class="kolumne-titel">Auf wen es schliesslich ankommt</div>
+          <div class="kolumne-datum">Urner Wochenblatt, 25.02.2023</div>
+        </div>
+
+        <div>
+          <div class="kolumne-kachel" onclick="openLightbox('kolumnen/uw4.jpg')">
+            <!--
+              BILD EINSETZEN:
+              <img src="kolumnen/uw4.jpg" alt="Suchst Du Streit? Geh ins Theater" />
+            -->
+            <div class="kolumne-kachel-placeholder">uw4.jpg</div>
+          </div>
+          <div class="kolumne-titel">Suchst Du Streit? Geh ins Theater</div>
+          <div class="kolumne-datum">Urner Wochenblatt, 06.05.2023</div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Kolumne" />
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Eva Mann</span>
+      <div class="footer-links">
+        <a href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <a href="https://www.linkedin.com/in/eva-mann-21b8b833/" target="_blank" rel="noopener" class="footer-linkedin">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.985V9h3.114v1.561h.046c.434-.82 1.492-1.684 3.07-1.684 3.284 0 3.888 2.161 3.888 4.971v6.604zM5.337 7.433a1.805 1.805 0 1 1 0-3.61 1.805 1.805 0 0 1 0 3.61zm1.558 13.019H3.779V9h3.116v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <span class="footer-copy">© Eva Mann</span>
+    </div>
+  </footer>
+
+  <!-- ══ JS ══ -->
+  <script>
+    function toggleMobileNav() {
+      document.getElementById('mobile-drawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    const pg = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-list a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === pg);
+    });
+
+    function openLightbox(src) {
+      if (!src) return;
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.getElementById('lightbox-img').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
