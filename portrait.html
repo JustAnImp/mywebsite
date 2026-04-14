@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portrait — Eva Mann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --creme:      #f7f0eb;
+      --creme-dark: #efe6de;
+      --nav-bg:     #1e1c1a;
+      --nav-hover:  #2e2b28;
+      --rot:        #8b1a1a;
+      --rot-logo:   #913521;
+      --schwarz:    #1a1a1a;
+      --grau:       #6b6460;
+      --linie:      #d4ccc0;
+      --weiss:      #f5f0e8;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--creme);
+      color: var(--schwarz);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .site-header { position: sticky; top: 0; z-index: 100; }
+
+    .logo-bar {
+      background: var(--creme);
+      padding: 1.4rem 2rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--linie);
+    }
+    .logo-bar a { display: inline-block; }
+    .logo-name {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--rot-logo);
+      display: block;
+      line-height: 1.15;
+      transition: color 0.2s;
+    }
+    .logo-bar a:hover .logo-name { opacity: 0.8; }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--grau);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .nav-bar { background: var(--nav-bg); }
+    .nav-desktop { max-width: var(--max-w); margin: 0 auto; padding: 0 1rem; }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav-list > li { position: relative; }
+    .nav-list > li > a {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--weiss);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-list > li > a:hover { background: var(--nav-hover); color: #e8c8a0; }
+    .nav-list > li > a.active {
+      background: var(--nav-hover);
+      color: #e8c8a0;
+      box-shadow: inset 0 -2px 0 var(--rot);
+    }
+
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 0.85rem 1.2rem;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--weiss); transition: all 0.28s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-drawer { display: none; background: var(--nav-bg); border-top: 1px solid #2e2b28; }
+    .mobile-drawer.open { display: block; }
+    .mobile-drawer > ul { list-style: none; }
+    .mobile-drawer > ul > li { border-bottom: 1px solid #2a2826; }
+    .mobile-drawer > ul > li > a {
+      display: block; width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.76rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--weiss); transition: color 0.18s;
+    }
+    .mobile-drawer > ul > li > a:hover { color: #e8c8a0; }
+
+    /* ══════════════════════════════════════════
+       PORTRAIT SLIDESHOW
+    ══════════════════════════════════════════ */
+    .portrait-slideshow-wrap {
+      max-width: var(--max-w);
+      margin: 3rem auto 0;
+      padding: 0 3rem;
+    }
+
+    .portrait-slideshow {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      background: var(--schwarz);
+    }
+
+    .portrait-slideshow .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    .portrait-slideshow .slide.active { opacity: 1; }
+    .portrait-slideshow .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .portrait-slideshow .slide-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.85rem; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+
+    .portrait-slideshow .slide-dots {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+    .portrait-slideshow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      border: none; padding: 0;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .portrait-slideshow .dot.active {
+      background: rgba(255,255,255,0.9);
+      transform: scale(1.3);
+    }
+
+    /* ══════════════════════════════════════════
+       BIOGRAPHIE
+    ══════════════════════════════════════════ */
+    .biographie {
+      max-width: var(--max-w);
+      margin: 3.5rem auto 0;
+      padding: 0 3rem;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rot-logo);
+      margin-bottom: 1.2rem;
+    }
+
+    .bio-text {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--schwarz);
+      max-width: 72ch;
+    }
+    .bio-text p + p { margin-top: 1.2em; }
+
+    /* ══════════════════════════════════════════
+       ARTIKEL-KACHELN
+    ══════════════════════════════════════════ */
+    .artikel-section {
+      max-width: var(--max-w);
+      margin: 3.5rem auto 5rem;
+      padding: 0 3rem;
+    }
+
+    .artikel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .artikel-kachel {
+      cursor: pointer;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--creme-dark);
+      position: relative;
+    }
+    .artikel-kachel img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .artikel-kachel:hover img { transform: scale(1.04); }
+
+    .artikel-kachel-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem; color: var(--linie);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1rem; text-align: center;
+    }
+
+    /* Hover-Overlay */
+    .artikel-kachel::after {
+      content: '↗';
+      position: absolute;
+      inset: 0;
+      background: rgba(145, 53, 33, 0.15);
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .artikel-kachel:hover::after { opacity: 1; }
+
+    /* ══════════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════════ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    .bio-text a {
+      color: var(--rot-logo);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .bio-text a:hover { border-bottom-color: var(--rot-logo); }
+
+    .cv-btn-wrap { margin-bottom: 2rem; }
+    .cv-btn {
+      display: inline-block;
+      padding: 0.7rem 2rem;
+      border: 1.5px solid var(--rot-logo);
+      color: var(--rot-logo);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cv-btn:hover {
+      background: var(--rot-logo);
+      color: var(--weiss);
+    }
+    footer { border-top: 1px solid var(--linie); margin-top: auto; }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--rot-logo); }
+    .footer-copy { font-size: 0.72rem; color: var(--grau); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grau); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--rot); }
+    .footer-linkedin { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--grau); transition: color 0.2s; }
+    .footer-linkedin:hover { color: var(--rot); }
+    .footer-linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-desktop { display: none; }
+      .hamburger { display: flex; }
+      .nav-bar { display: flex; justify-content: flex-end; }
+
+      .portrait-slideshow-wrap,
+      .biographie,
+      .artikel-section { padding: 0 1.5rem; }
+
+      .artikel-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .logo-name { font-size: 1.65rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .artikel-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
+    <div class="logo-bar">
+      <a href="index.html">
+        <span class="logo-name">Eva Mann</span>
+        <span class="logo-sub">Regie&nbsp;|&nbsp;Sprache&nbsp;|&nbsp;Spiel</span>
+      </a>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-desktop">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aktuell.html">Aktuell</a></li>
+          <li><a href="portrait.html" class="active">Portrait</a></li>
+          <li><a href="inszenierungen.html">Inszenierungen</a></li>
+          <li><a href="projekte.html">Projekte</a></li>
+          <li><a href="spiel.html">Spiel</a></li>
+          <li><a href="texte.html">Texte</a></li>
+          <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+          <li><a href="medien.html">Medien</a></li>
+          <li><a href="presse.html">Presse</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aktuell.html">Aktuell</a></li>
+        <li><a href="portrait.html">Portrait</a></li>
+        <li><a href="inszenierungen.html">Inszenierungen</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="spiel.html">Spiel</a></li>
+        <li><a href="texte.html">Texte</a></li>
+        <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+        <li><a href="medien.html">Medien</a></li>
+        <li><a href="presse.html">Presse</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+
+    <!-- PORTRAIT SLIDESHOW -->
+    <div class="portrait-slideshow-wrap">
+      <div class="portrait-slideshow" id="portrait-ss">
+
+        <!--
+          FOTOS EINSETZEN — jede Folie:
+          <div class="slide">
+            <img src="bilder/portrait1.jpg" alt="Portrait Eva Mann" />
+          </div>
+        -->
+        <div class="slide active">
+          <div class="slide-placeholder">Portrait 1</div>
+        </div>
+        <div class="slide">
+          <div class="slide-placeholder">Portrait 2</div>
+        </div>
+        <div class="slide">
+          <div class="slide-placeholder">Portrait 3</div>
+        </div>
+
+        <div class="slide-dots" id="portrait-dots"></div>
+      </div>
+    </div>
+
+    <!-- BIOGRAPHIE -->
+    <div class="biographie">
+      <div class="bio-text">
+        <p>Eva Mann studierte Schauspielregie (MA) an der <a href="https://www.east15.ac.uk">East 15 Acting School</a> in London und an der Theaterakademie GITIS in Moskau. Sie hat als Regisseurin, Schauspielerin, Autorin und Übersetzerin in der Schweiz, Deutschland, England, den USA und Russland gearbeitet. Aktuell vertieft sie ihre Praxis im Bereich <a href="intimacy-direction.html">Intimacy Direction</a> – sie ist zertifizierte Consent Forward Artist von <a href="https://www.idcprofessionals.com" target="_blank" rel="noopener">IDC Professionals</a>.</p>
+
+        <p>In der freien Szene der Schweiz ist sie regelmäßig als Regisseurin (z. B. Gift &amp; Gnade) oder Schauspielerin (Hase Hase) tätig, sowie dokumentarisch mit dem Kollektiv SinnSpiel. Ein Schwerpunkt ihrer Arbeit liegt auf Inszenierungen mit nichtprofessionellen Darstellenden – etwa bei Freilicht-Spielen (Geierwally, Ein Sommernachtstraum, Mass für Mass) oder bei ambitionierten Texten wie Millers Hexenjagd und Borcherts Draussen vor der Tür.</p>
+
+        <p>2024 war Eva Mann für das Nidwaldner Museum tätig, wo sie den interaktiven Teil der Ausstellung <a href="https://nidwaldner-museum.ch/ausstellungen/alles-theater/" target="_blank" rel="noopener"><em>Alles Theater – Spiellust auf der Laienbühne</em></a> konzipierte und umsetzte.</p>
+
+        <p>Sie arbeitet zudem regelmäßig als <a href="texte.html">Übersetzerin</a>, mit besonderem Interesse an der Übertragung zwischen Theatertraditionen. So hat sie mehrere Shakespeare-Stücke für Laiengruppen in Mundart übertragen und inszeniert. Im Bereich zeitgenössische Dramatik verantwortete sie als Übersetzerin und Regisseurin die deutschsprachigen Erstaufführungen von Charlotte Jones' <em>Luftschwimmen</em> (Airswimming), Gina Gionfriddos <em>Rapture, Blister, Burn</em> sowie Simon Beaufoys <em>The Full Monty</em>.</p>
+
+        <p>Ihre Beschäftigung mit Kulturtransfer und interkulturellen Theaterformen zeigt sich u.a. in ihrer Zusammenarbeit mit dem kenianischen Regisseur Washington Obwanda (Forum Theatre Nairobi) sowie in ihrer langjährigen Auseinandersetzung mit dem jiddischen Theater.</p>
+
+        <p>Eva Mann war Stipendiatin des Lincoln Center Directors Lab New York (2014) und ist Atelier X-Stipendiatin der Albert Köchlin Stiftung (2025). Für das Projekt <em>Vogelfrey</em> gewann sie 2021 den Zentralschweizer Theatertexte-Wettbewerb. 2022 wurde der von ihr dramaturgisch begleitete Theaterspaziergang <em>Ein Hut, ein Stock, ein Regenschirm</em> mit dem Landestheaterpreis Baden-Württemberg für Amateurtheater ausgezeichnet. 2023 erschienen Texte von ihr in der Rubrik „Persönlich" des Urner Wochenblatts.</p>
+
+        <p>Als Schauspielerin war sie u.a. als Köstliche Quelle an der Studiobühne des Opernhauses Zürich (mit Anne-Marie Blanc), am Theater Stadelhofen (<em>Tumult im Narrenhaus</em>) und bei den Murten Classics (<em>L'Histoire du Soldat</em>) zu sehen.</p>
+
+        <p>Eva Mann hat einen Magister Artium in Germanistik, Philosophie und Altertumswissenschaften (Basel &amp; Tübingen) und ist als Dozentin tätig, u.a. an der East 15 Acting School, der Universität Basel und im Rahmen von Lehrerweiterbildungen (SATE/WBZ). Sie ist Mitglied von <a href="https://www.tpunkt.ch/" target="_blank" rel="noopener">t. Theaterschaffende Schweiz</a> sowie <a href="https://www.a-d-s.ch/" target="_blank" rel="noopener">A*dS – Autorinnen und Autoren der Schweiz</a>.</p>
+      </div>
+    </div>
+
+    <!-- ARTIKEL-KACHELN -->
+    <div class="artikel-section">
+      <p class="section-label">Presse &amp; Artikel</p>
+      <div class="cv-btn-wrap">
+        <a href="dokumente/eva-mann-cv.pdf" download class="cv-btn">CV herunterladen</a>
+      </div>
+      <div class="artikel-grid">
+
+        <!--
+          ARTIKEL EINSETZEN:
+          data-src zeigt auf das Vollbild, das in der Lightbox erscheint.
+          Das <img> in der Kachel kann dasselbe oder ein Vorschaubild sein.
+
+          <div class="artikel-kachel" onclick="openLightbox('bilder/artikel1_gross.jpg')">
+            <img src="bilder/artikel1_vorschau.jpg" alt="Artikel NZZ" />
+          </div>
+        -->
+
+        <div class="artikel-kachel" onclick="openLightbox('')">
+          <div class="artikel-kachel-placeholder">Artikel 1</div>
+        </div>
+        <div class="artikel-kachel" onclick="openLightbox('')">
+          <div class="artikel-kachel-placeholder">Artikel 2</div>
+        </div>
+        <div class="artikel-kachel" onclick="openLightbox('')">
+          <div class="artikel-kachel-placeholder">Artikel 3</div>
+        </div>
+        <div class="artikel-kachel" onclick="openLightbox('')">
+          <div class="artikel-kachel-placeholder">Artikel 4</div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Artikel" />
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Eva Mann</span>
+      <div class="footer-links">
+        <a href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <a href="https://www.linkedin.com/in/eva-mann-21b8b833/" target="_blank" rel="noopener" class="footer-linkedin">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.985V9h3.114v1.561h.046c.434-.82 1.492-1.684 3.07-1.684 3.284 0 3.888 2.161 3.888 4.971v6.604zM5.337 7.433a1.805 1.805 0 1 1 0-3.61 1.805 1.805 0 0 1 0 3.61zm1.558 13.019H3.779V9h3.116v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <span class="footer-copy">© Eva Mann</span>
+    </div>
+  </footer>
+
+  <!-- ══ JS ══ -->
+  <script>
+    // Mobile Nav
+    function toggleMobileNav() {
+      document.getElementById('mobile-drawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+
+    // Active Link
+    const pg = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-list a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === pg);
+    });
+
+    // Portrait Slideshow
+    (function() {
+      const ss = document.getElementById('portrait-ss');
+      const slides = ss.querySelectorAll('.slide');
+      const dotsContainer = document.getElementById('portrait-dots');
+      const intervalMs = 5000;
+      let current = 0, timer;
+
+      slides.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', 'Portrait ' + (i + 1));
+        btn.addEventListener('click', () => { goTo(i); resetTimer(); });
+        dotsContainer.appendChild(btn);
+      });
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dotsContainer.children[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsContainer.children[current].classList.add('active');
+      }
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), intervalMs);
+      }
+      resetTimer();
+    })();
+
+    // Lightbox
+    function openLightbox(src) {
+      if (!src) return;
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.getElementById('lightbox-img').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
