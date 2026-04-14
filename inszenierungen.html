@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inszenierungen — Eva Mann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --creme:      #f7f0eb;
+      --creme-dark: #efe6de;
+      --nav-bg:     #1e1c1a;
+      --nav-hover:  #2e2b28;
+      --rot:        #8b1a1a;
+      --rot-logo:   #913521;
+      --schwarz:    #1a1a1a;
+      --grau:       #6b6460;
+      --linie:      #d4ccc0;
+      --weiss:      #f5f0e8;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--creme);
+      color: var(--schwarz);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ══ HEADER ══ */
+    .site-header { position: sticky; top: 0; z-index: 100; }
+
+    .logo-bar {
+      background: var(--creme);
+      padding: 1.4rem 2rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--linie);
+    }
+    .logo-bar a { display: inline-block; }
+    .logo-name {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--rot-logo);
+      display: block;
+      line-height: 1.15;
+      transition: opacity 0.2s;
+    }
+    .logo-bar a:hover .logo-name { opacity: 0.8; }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--grau);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .nav-bar { background: var(--nav-bg); }
+    .nav-desktop { max-width: var(--max-w); margin: 0 auto; padding: 0 1rem; }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav-list > li > a {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--weiss);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-list > li > a:hover { background: var(--nav-hover); color: #e8c8a0; }
+    .nav-list > li > a.active {
+      background: var(--nav-hover);
+      color: #e8c8a0;
+      box-shadow: inset 0 -2px 0 var(--rot);
+    }
+
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 0.85rem 1.2rem;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--weiss); transition: all 0.28s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-drawer { display: none; background: var(--nav-bg); border-top: 1px solid #2e2b28; }
+    .mobile-drawer.open { display: block; }
+    .mobile-drawer > ul { list-style: none; }
+    .mobile-drawer > ul > li { border-bottom: 1px solid #2a2826; }
+    .mobile-drawer > ul > li > a {
+      display: block; width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.76rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--weiss); transition: color 0.18s;
+    }
+    .mobile-drawer > ul > li > a:hover { color: #e8c8a0; }
+
+    /* ══ INHALT ══ */
+    main { flex: 1; }
+
+    .page-header {
+      max-width: var(--max-w);
+      margin: 3rem auto 2rem;
+      padding: 0 3rem;
+      border-bottom: 1px solid var(--linie);
+      padding-bottom: 1.5rem;
+    }
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rot-logo);
+      margin-bottom: 0.5rem;
+    }
+    .page-header .legende {
+      font-size: 0.72rem;
+      color: var(--grau);
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .page-header .legende span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .legende .pfeil-intern { color: var(--rot-logo); font-size: 0.8rem; }
+    .legende .pfeil-extern { color: var(--grau); font-size: 0.8rem; }
+
+    /* Karten-Grid */
+    .karten {
+      max-width: var(--max-w);
+      margin: 0 auto 5rem;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0;
+    }
+
+    .card {
+      padding: 1.4rem 1.2rem 1.4rem 0;
+      border-bottom: 1px solid var(--linie);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--schwarz);
+    }
+
+    /* Titel mit internem konditionalen Link */
+    .card h2.hat-link {
+      color: var(--rot-logo);
+      cursor: pointer;
+    }
+    .card h2.hat-link:hover { opacity: 0.75; }
+    .card h2.hat-link .link-pfeil {
+      font-size: 0.9rem;
+      margin-left: 0.25em;
+      vertical-align: middle;
+    }
+
+    /* Titel mit externem Link */
+    .card h2.hat-extern-link {
+      cursor: pointer;
+    }
+    .card h2.hat-extern-link:hover { opacity: 0.75; }
+    .card h2.hat-extern-link .link-pfeil {
+      font-size: 0.8rem;
+      margin-left: 0.25em;
+      vertical-align: middle;
+      color: var(--grau);
+    }
+
+    .card .credits {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--grau);
+      line-height: 1.6;
+    }
+
+    .card .theater {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--rot-logo);
+      margin-top: 0.3rem;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--linie); }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--rot-logo); }
+    .footer-copy { font-size: 0.72rem; color: var(--grau); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grau); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--rot); }
+    .footer-linkedin { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--grau); transition: color 0.2s; }
+    .footer-linkedin:hover { color: var(--rot); }
+    .footer-linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-desktop { display: none; }
+      .hamburger { display: flex; }
+      .nav-bar { display: flex; justify-content: flex-end; }
+      .karten { padding: 0 1.5rem; grid-template-columns: 1fr; }
+      .page-header { padding: 0 1.5rem 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .logo-name { font-size: 1.65rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
+    <div class="logo-bar">
+      <a href="index.html">
+        <span class="logo-name">Eva Mann</span>
+        <span class="logo-sub">Regie&nbsp;|&nbsp;Sprache&nbsp;|&nbsp;Spiel</span>
+      </a>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-desktop">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aktuell.html">Aktuell</a></li>
+          <li><a href="portrait.html">Portrait</a></li>
+          <li><a href="inszenierungen.html" class="active">Inszenierungen</a></li>
+          <li><a href="projekte.html">Projekte</a></li>
+          <li><a href="spiel.html">Spiel</a></li>
+          <li><a href="texte.html">Texte</a></li>
+          <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+          <li><a href="medien.html">Medien</a></li>
+          <li><a href="presse.html">Presse</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aktuell.html">Aktuell</a></li>
+        <li><a href="portrait.html">Portrait</a></li>
+        <li><a href="inszenierungen.html">Inszenierungen</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="spiel.html">Spiel</a></li>
+        <li><a href="texte.html">Texte</a></li>
+        <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+        <li><a href="medien.html">Medien</a></li>
+        <li><a href="presse.html">Presse</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+
+    <div class="page-header">
+      <h1>Inszenierungen</h1>
+      <div class="legende">
+        <span><span class="pfeil-intern">→</span> weitere Infos auf dieser Website</span>
+        <span><span class="pfeil-extern">↗</span> externer Link</span>
+      </div>
+    </div>
+
+    <div class="karten">
+
+      <!-- Konditionale interne Links -->
+      <div class="card">
+        <h2 class="hat-link" data-page="vogelfrey.html">Vogelfrey. Eine Fiktion über den Nidwaldner Flugplatz. <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text und Regie: Eva Mann | Nidwaldner Dialekt: Antoinette Petermann | Bühne: Elionora Amstutz | Kostümbild: Margot Gadient und Rhea Willimann | Musik: Marvin Näpflin</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="mass-fuer-mass.html">Mass für Mass <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text: William Shakespeare | Übersetzung und Regie: Eva Mann | Musik: Klangheimlich</p>
+        <div class="theater">Theater im Hof, Bubikon</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="geierwally.html">Geierwally <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text &amp; Regie: Eva Mann | Berndeutsch: Laurenz Suter | Kostüme: Brigitte Wolf</p>
+        <div class="theater">Bühne Schwarzenburg</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="fiesco.html">Fiesco <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text: Friedrich Schiller. Bearbeitung als Theaterspaziergang: Eva Mann | Regie: Eva Mann | Kostümbild: Anne Brügel</p>
+        <div class="theater">Theater unter der Dauseck</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="ein-sommernachtstraum-gansingen.html">Ein Sommernachtstraum <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text: William Shakespeare | Übersetzung: Eva Mann | Regie: Eva Mann | Produktionsleitung: Thomas Szabo und Jules Steinacher | Licht: Edith Szabo und Dieter Läuchli | Arrangements und Dirigat: David Rossel</p>
+        <div class="theater">Freilicht Gansingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="ein-sommernachtstraum-andelfingen.html">Ein Sommernachtstraum <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text: William Shakespeare | Übersetzung: Eva Mann (mit Zürichteutsch-Expertise von Thomas Kromer) | Regie: Eva Mann | Bühnenbild: Peter Schöni | Choreographie: Thomas Grampp, Jacqueline Moro, Eva Mann | Musikalische Leitung: Rolf Neuweiler</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="draussen-vor-der-tuer.html">Draussen vor der Tür <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text: Wolfgang Borchert | Zürcher Mundart: Thomas Stricker | Regie: Eva Mann | Kostüme: Naadia Remund &amp; Vreni Urech</p>
+        <div class="theater">Theatergruppe Fällanden</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="das-cha-bi-eus-ned-passiere.html">Das cha bi eus nid passiere <span class="link-pfeil">→</span></h2>
+        <p class="credits">Text &amp; Regie: Eva Mann | Ausstattung: Sascha Strickler | Musik: Jonas Arnet &amp; Band</p>
+        <div class="theater">Theatergruppe Bünzen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-link" data-page="das-gekaufte-glueck.html">Das gekaufte Glück <span class="link-pfeil">→</span></h2>
+        <p class="credits">Nach dem Film von Urs Odermatt | Text: Barbara Schüssler | Regie: Eva Mann | Bühne: Elionora Amstutz | Kostüme: Rhea Wallimann &amp; Margot Gadient</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <!-- Externe Links (Weinlandbühne etc.) -->
+      <div class="card">
+        <h2 class="hat-extern-link"><a href="https://weinlandbuehne.ch/produktionen/the-full-monty/" target="_blank" rel="noopener">The Full Monty <span class="link-pfeil">↗</span></a></h2>
+        <p class="credits">Text: Simon Beaufoy | Regie: Eva Mann</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-extern-link"><a href="https://weinlandbuehne.ch/produktionen/die-zwoelf-geschworenen/" target="_blank" rel="noopener">Die 12 Geschworenen <span class="link-pfeil">↗</span></a></h2>
+        <p class="credits">Text: Reginald Rose | Deutsche Fassung: Horst Bodjuhn | Mundart: Thomas Kromer | Regie: Eva Mann</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-extern-link"><a href="https://weinlandbuehne.ch/produktionen/min-fruend-armin-mein-freund-harvey/" target="_blank" rel="noopener">Min Fründ Armin <span class="link-pfeil">↗</span></a></h2>
+        <p class="credits">Regie: Eva Mann</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-extern-link"><a href="https://weinlandbuehne.ch/produktionen/kalender-girls/" target="_blank" rel="noopener">Kalender Girls <span class="link-pfeil">↗</span></a></h2>
+        <p class="credits">Text: Tim Firth | Zürcher Mundart: Thomas Kromer | Regie: Eva Mann | Ausstattung: Peter Schöni</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2 class="hat-extern-link"><a href="https://weinlandbuehne.ch/produktionen/lebenskuenstler/" target="_blank" rel="noopener">Lebenskünstler <span class="link-pfeil">↗</span></a></h2>
+        <p class="credits">Text: George S. Kaufman &amp; Moss Hart «You can't take it with you» | Zürcher Mundart: Thomas Kromer | Regie: Eva Mann | Ausstattung: Peter Schöni &amp; Sandrine Bollhalder</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <!-- Karten ohne Link -->
+      <div class="card">
+        <h2>Biedermann und die Brandstifter</h2>
+        <p class="credits">Text: Max Frisch | Mundart: Thomas Kromer | Regie: Eva Mann | Choreinstudierung: Katharina Giger-Gasse</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2>Honig im Kopf</h2>
+        <p class="credits">Komödie nach dem gleichnamigen Film | Theaterfassung: Florian Battermann | Regie: Eva Mann | Bühne: Eggi Gabriel | Kostümbild: Katrin Niess und Selina Truttmann</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>Uf de Ned Divine</h2>
+        <p class="credits">Text: Jonas Arnet &amp; Patrick Grob | Regie: Eva Mann | Bühne: Pius Strickler und Team | Kostümbild: Brigitte Stutz und Sascha Strickler | Musik: Jonas Arnet und Band</p>
+        <div class="theater">Theatergruppe Bünzen</div>
+      </div>
+
+      <div class="card">
+        <h2>Monsieur Claude und seine Töchter</h2>
+        <p class="credits">Komödie nach dem gleichnamigen Film von Philippe de Chauveron und Guy Laurant | Theaterfassung: Stefan Zimmermann | Regie: Eva Mann | Bühne: Elionora Amstutz | Kostümbild: Elina Belihel</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>Vermessen. Annäherung an Tobias Mayer</h2>
+        <p class="credits">Text: Barbara Schüssler | Regie: Eva Mann | Kostümbild: Anne Brügel</p>
+        <div class="theater">Theater unter der Dauseck</div>
+      </div>
+
+      <div class="card">
+        <h2>Häsli Häsli</h2>
+        <p class="credits">Nach «Lapin Lapin» von Coline Serreau | Mundartfassung: Eva Mann | Regie: Eva Mann | Musik: Jonas Arnet</p>
+        <div class="theater">Theater Bünzen</div>
+      </div>
+
+      <div class="card">
+        <h2>Grabensdorf</h2>
+        <p class="credits">Text: Jörg Meier | Regie: Eva Mann | Bühne: Stefan Hegi | Kostümbild: Elina Belihel | Musik: Jonas Arnet</p>
+        <div class="theater">Theater Ad Hoc Sarmenstorf</div>
+      </div>
+
+      <div class="card">
+        <h2>De Stumpf im Sumpf</h2>
+        <p class="credits">Text: Thomas Muggli | Regie: Eva Mann | Musik: Klangheimlich</p>
+        <div class="theater">Theater im Hof, Bubikon</div>
+      </div>
+
+      <div class="card">
+        <h2>Der Tag vor morgen</h2>
+        <p class="credits">Pandemie-tauglicher Theaterspaziergang durchs Hotel Zugertor | Text &amp; Regie: Eva Mann | Kostümbild: Felizitas Philipp</p>
+        <div class="theater">Kulisse Zug</div>
+      </div>
+
+      <div class="card">
+        <h2>Eyses Heidi</h2>
+        <p class="credits">Text: HP Müller-Drossaart | Regie: Eva Mann | Bühnenbild: Elionora Amstutz | Kostümbild: Rhea Wallimann &amp; Margot Gadient | Musikalisches Konzept: Emil Wallimann</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>heimfinden</h2>
+        <p class="credits">Text: Barbara Schüssler | Regie: Eva Mann &amp; Dagmar Brade | Ausstattung: Felizitas Philipp</p>
+        <div class="theater">Theater unter der Dauseck</div>
+      </div>
+
+      <div class="card">
+        <h2>Ich habe den Himmel gegessen</h2>
+        <p class="credits">Musikalischer Monolog für eine Schauspielerin, basierend auf Texten von Silja Walter | Spiel: Christine Lather | Komposition &amp; Klavier: Felix Huber | Regie: Lilian Naef &amp; Eva Mann</p>
+      </div>
+
+      <div class="card">
+        <h2>Der Pavillon</h2>
+        <p class="credits">Text: Alec Coppel | Zürcher Mundart: Thomas Kromer | Regie: Eva Mann | Ausstattung: Peter Schöni &amp; Sandrine Bollhalder</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2>Die Schweizermacher</h2>
+        <p class="credits">Nach dem Film von Rolf Lyssy | Text: Paul Steinmann | Regie: Eva Mann | Bühnenbild: Elionora Amstutz | Kostümbild: Rhea Wallimann &amp; Margot Gadient | Musik-Arrangements: Rolf Ambauen</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>Gute Nacht, Frau Engel</h2>
+        <p class="credits">Text: Arthur Lovegrove | Regie: Eva Mann | Kostümbild: Margot Gadient</p>
+        <div class="theater">Theater Glarus</div>
+      </div>
+
+      <div class="card">
+        <h2>Mordsfrauen</h2>
+        <p class="credits">Text: Corina Rues-Benz | Zürcher Mundart: Simone Brunner | Regie: Eva Mann | Assistenz: Marc Hofmann</p>
+        <div class="theater">Schatulle Greifensee</div>
+      </div>
+
+      <div class="card">
+        <h2>Hexenjagd</h2>
+        <p class="credits">Text: Arthur Miller «The Crucible» | Übersetzung &amp; Regie: Eva Mann | Bühne: Markus Fähndrich | Kostüme: Nadja Meier</p>
+        <div class="theater">Rabenbühne Hitzkirch</div>
+      </div>
+
+      <div class="card">
+        <h2>Kindsglück</h2>
+        <p class="credits">Text: Barbara Schüssler | Regie: Eva Mann | Co-Regie: Dagmar Brade | Ausstattung: Felizitas Philipp</p>
+        <div class="theater">Theater unter der Dauseck</div>
+      </div>
+
+      <div class="card">
+        <h2>Kalender Girls</h2>
+        <p class="credits">Text: Tim Firth | Regie: Eva Mann | Bühnenbild: Elionora Amstutz | Kostümbild: Rhea Wallimann &amp; Margot Gadient | Musik: Osonga Chick Munduki</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>Zehn kleine Engelein</h2>
+        <p class="credits">Nach Agatha Christie «And Then There Were None» | Regie: Eva Mann</p>
+        <div class="theater">Bühni Wyfälde / Theaterhaus Thurgau</div>
+      </div>
+
+      <div class="card">
+        <h2>Don Camillo &amp; Peppone</h2>
+        <p class="credits">Text: Giovannino Guareschi | Regie: Eva Mann | Bühnenbild: Elionora Amstutz | Kostümbild: Rhea Wallimann &amp; Margot Gadient | Musik: Joseph Bachmann &amp; Hannes Marti</p>
+        <div class="theater">Theater Buochs</div>
+      </div>
+
+      <div class="card">
+        <h2>Rock N Roll im Alterheim</h2>
+        <p class="credits">Regie: Eva Mann | Assistenz: Pia Vieli</p>
+        <div class="theater">Theater Rampenlicht</div>
+      </div>
+
+      <div class="card">
+        <h2>Es Eggli Ab</h2>
+        <p class="credits">Text: John Patrick «The Curious Savage» | Zürcher Mundart: Thomas Kromer | Regie: Eva Mann | Ausstattung: Peter Schöni</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2>Säg doch eifach ja</h2>
+        <p class="credits">Regie: Eva Mann</p>
+        <div class="theater">Theatergruppe Hinwil</div>
+      </div>
+
+      <div class="card">
+        <h2>СТРАСТИ ПО РОМЕО И ДЖУЛЬЕТТЕ</h2>
+        <p class="credits">Regie: Eva Mann, Lluvia Barrera Rivas und Marcus Roche | Ausstattung: Gennadi Ostrenko | Künstlerische Leitung: Sergei Ostrenko</p>
+        <div class="theater">Anton Chekhov-Theater Taganrog</div>
+      </div>
+
+      <div class="card">
+        <h2>Geistreiche Komödie</h2>
+        <p class="credits">Noel Coward «Blithe Spirit» | Zürcher Mundart: Thomas Kromer | Regie: Eva Mann | Bühne: Peter Schöni</p>
+        <div class="theater">Weinlandbühne Andelfingen</div>
+      </div>
+
+      <div class="card">
+        <h2>De Verruckti Theodor</h2>
+        <p class="credits">Regie: Eva Mann</p>
+        <div class="theater">Theatergruppe Hinwil</div>
+      </div>
+
+      <div class="card">
+        <h2>A Murder Is Announced</h2>
+        <p class="credits">Text: Agatha Christie | Regie: Eva Mann | Bühne: Dragana Blaser | Kostüme: Claudia Ott</p>
+        <div class="theater">Semi Circle Basel</div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Eva Mann</span>
+      <div class="footer-links">
+        <a href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <a href="https://www.linkedin.com/in/eva-mann-21b8b833/" target="_blank" rel="noopener" class="footer-linkedin">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.985V9h3.114v1.561h.046c.434-.82 1.492-1.684 3.07-1.684 3.284 0 3.888 2.161 3.888 4.971v6.604zM5.337 7.433a1.805 1.805 0 1 1 0-3.61 1.805 1.805 0 0 1 0 3.61zm1.558 13.019H3.779V9h3.116v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <span class="footer-copy">© Eva Mann</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileNav() {
+      document.getElementById('mobile-drawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    const pg = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-list a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === pg);
+    });
+
+    // Konditionale interne Links
+    document.querySelectorAll('h2.hat-link').forEach(h2 => {
+      h2.style.cursor = 'pointer';
+      h2.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        fetch(page, { method: 'HEAD' })
+          .then(res => {
+            window.location.href = res.ok ? page : 'inszenierungen.html';
+          })
+          .catch(() => {
+            window.location.href = 'inszenierungen.html';
+          });
+      });
+    });
+  </script>
+
+</body>
+</html>
