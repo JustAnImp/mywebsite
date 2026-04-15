@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aktuell — Eva Mann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --creme:      #f7f0eb;
+      --creme-dark: #efe6de;
+      --nav-bg:     #1e1c1a;
+      --nav-hover:  #2e2b28;
+      --rot:        #8b1a1a;
+      --rot-logo:   #913521;
+      --schwarz:    #1a1a1a;
+      --grau:       #6b6460;
+      --linie:      #d4ccc0;
+      --weiss:      #f5f0e8;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--creme);
+      color: var(--schwarz);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ══════════════════════════════════════════
+       SITE HEADER (identisch mit index.html)
+    ══════════════════════════════════════════ */
+    .site-header { position: sticky; top: 0; z-index: 100; }
+
+    .logo-bar {
+      background: var(--creme);
+      padding: 1.4rem 2rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--linie);
+    }
+    .logo-bar a { display: inline-block; }
+    .logo-name {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--rot-logo);
+      display: block;
+      line-height: 1.15;
+      transition: color 0.2s;
+    }
+    .logo-bar a:hover .logo-name { opacity: 0.8; }
+    .logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--grau);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .nav-bar { background: var(--nav-bg); }
+    .nav-desktop { max-width: var(--max-w); margin: 0 auto; padding: 0 1rem; }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav-list > li { position: relative; }
+    .nav-list > li > a {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--weiss);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-list > li > a:hover { background: var(--nav-hover); color: #e8c8a0; }
+    .nav-list > li > a.active {
+      background: var(--nav-hover);
+      color: #e8c8a0;
+      box-shadow: inset 0 -2px 0 var(--rot);
+    }
+
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 0.85rem 1.2rem;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--weiss); transition: all 0.28s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-drawer { display: none; background: var(--nav-bg); border-top: 1px solid #2e2b28; }
+    .mobile-drawer.open { display: block; }
+    .mobile-drawer > ul { list-style: none; }
+    .mobile-drawer > ul > li { border-bottom: 1px solid #2a2826; }
+    .mobile-drawer > ul > li > a {
+      display: block; width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.76rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--weiss); transition: color 0.18s;
+    }
+    .mobile-drawer > ul > li > a:hover { color: #e8c8a0; }
+
+    /* ══════════════════════════════════════════
+       INHALT
+    ══════════════════════════════════════════ */
+    main { flex: 1; }
+
+    .page-title {
+      max-width: var(--max-w);
+      margin: 3rem auto 0;
+      padding: 0 3rem;
+    }
+    .page-title h1 {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rot-logo);
+    }
+
+    /* ── PRODUKTIONS-LISTE ──────────────────── */
+    .produktionen {
+      max-width: var(--max-w);
+      margin: 2rem auto 5rem;
+      padding: 0 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Eine Produktionszeile */
+    .produktion {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--linie);
+      padding: 3.5rem 0;
+    }
+    .produktion:last-child { border-bottom: 1px solid var(--linie); }
+
+    /* Bild-Seite */
+    .prod-bild {
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      max-height: 520px;
+    }
+    .prod-bild img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.5s ease;
+    }
+    .prod-bild:hover img { transform: scale(1.02); }
+
+    /* Platzhalter */
+    .prod-bild-placeholder {
+      width: 100%; height: 100%;
+      background: var(--creme-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.85rem; color: var(--linie);
+      letter-spacing: 0.15em; text-transform: uppercase;
+      aspect-ratio: 3/4; max-height: 520px;
+    }
+
+    /* Text-Seite */
+    .prod-text {
+      padding: 0.5rem 0 0 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* Alternierend: Bild rechts */
+    .produktion.umgekehrt .prod-bild { order: 2; }
+    .produktion.umgekehrt .prod-text {
+      order: 1;
+      padding: 0.5rem 4rem 0 0;
+    }
+
+    /* Typografie innerhalb Prod-Text */
+    .prod-rolle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.65rem;
+      font-weight: 300;
+      color: var(--rot-logo);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .prod-titel {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--schwarz);
+      margin-bottom: 1rem;
+    }
+
+    .prod-trennlinie {
+      width: 3rem;
+      height: 1px;
+      background: var(--linie);
+      margin-bottom: 1.2rem;
+    }
+
+    .prod-untertitel {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.73rem;
+      font-weight: 300;
+      color: var(--schwarz);
+      margin-bottom: 1.4rem;
+      line-height: 1.25;
+    }
+
+    .prod-info {
+      font-family: var(--font-body);
+      font-size: 0.99rem;
+      font-weight: 300;
+      color: var(--schwarz);
+      line-height: 1.35;
+      margin-bottom: 2rem;
+    }
+
+    .prod-btn {
+      display: inline-block;
+      padding: 0.7rem 2rem;
+      background: var(--rot-logo);
+      color: var(--weiss);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      text-decoration: none;
+    }
+    .prod-btn:hover { background: #7a2d1e; }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer { border-top: 1px solid var(--linie); }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--rot-logo); }
+    .footer-copy { font-size: 0.72rem; color: var(--grau); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grau); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--rot); }
+    .footer-linkedin { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--grau); transition: color 0.2s; }
+    .footer-linkedin:hover { color: var(--rot); }
+    .footer-linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-desktop { display: none; }
+      .hamburger { display: flex; }
+      .nav-bar { display: flex; justify-content: flex-end; }
+
+      .produktionen { padding: 0 1.5rem; }
+      .page-title { padding: 0 1.5rem; }
+
+      .produktion {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2.5rem 0;
+      }
+      .prod-text { padding: 0 !important; }
+      .prod-bild { max-height: 340px; }
+      .prod-bild-placeholder { max-height: 340px; }
+
+      /* Auf Mobile: Bild immer oben */
+      .produktion.umgekehrt .prod-bild { order: 0; }
+      .produktion.umgekehrt .prod-text { order: 1; }
+    }
+
+    @media (max-width: 500px) {
+      .logo-name { font-size: 1.65rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
+    <div class="logo-bar">
+      <a href="index.html">
+        <span class="logo-name">Eva Mann</span>
+        <span class="logo-sub">Regie&nbsp;|&nbsp;Sprache&nbsp;|&nbsp;Spiel</span>
+      </a>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-desktop">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aktuell.html" class="active">Aktuell</a></li>
+          <li><a href="portrait.html">Portrait</a></li>
+          <li><a href="inszenierungen.html">Inszenierungen</a></li>
+          <li><a href="projekte.html">Projekte</a></li>
+          <li><a href="spiel.html">Spiel</a></li>
+          <li><a href="texte.html">Texte</a></li>
+          <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+          <li><a href="medien.html">Medien</a></li>
+          <li><a href="presse.html">Presse</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aktuell.html">Aktuell</a></li>
+        <li><a href="portrait.html">Portrait</a></li>
+        <li><a href="inszenierungen.html">Inszenierungen</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="spiel.html">Spiel</a></li>
+        <li><a href="texte.html">Texte</a></li>
+        <li><a href="intimacy-direction.html">Intimacy Direction</a></li>
+        <li><a href="medien.html">Medien</a></li>
+        <li><a href="presse.html">Presse</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+
+    <div class="page-title">
+      <h1>Aktuell</h1>
+    </div>
+
+    <div class="produktionen">
+
+      <!-- 1 Widerstand i de Wyde — Bild links -->
+      <div class="produktion">
+        <div class="prod-bild">
+          <img src="plakate/PK_A5_ES_-oB_2026_Print-1_uid_69cc1c678b019.png" alt="Widerstand i de Wyde" />
+        </div>
+        <div class="prod-text">
+          <p class="prod-rolle">Text &amp; Regie</p>
+          <h2 class="prod-titel">Widerstand i de Wyde</h2>
+          <p class="prod-untertitel">Der erste Rapperswiler Hexenprozess</p>
+          <div class="prod-trennlinie"></div>
+          <div class="prod-info">
+            Premiere: 12. Juni 2026<br>
+            Theater im Hof, Ritterhaus Bubikon<br>
+            12. bis 27. Juni 2026
+          </div>
+          <a href="https://theaterimhof.ch" target="_blank" rel="noopener" class="prod-btn">Infos &amp; Tickets</a>
+        </div>
+      </div>
+
+      <!-- 2 Nimmerland — Bild rechts -->
+      <div class="produktion umgekehrt">
+        <div class="prod-bild">
+          <img src="plakate/Nimmerland_Image.png" alt="Nimmerland" />
+        </div>
+        <div class="prod-text">
+          <p class="prod-rolle">Text &amp; Regie</p>
+          <h2 class="prod-titel">Nimmerland</h2>
+          <p class="prod-untertitel">Freilichtspiel nach «Peter Pan» von J.M. Barrie</p>
+          <div class="prod-trennlinie"></div>
+          <div class="prod-info">
+            Aza Andelfingen<br>
+            Premiere im August 2027
+          </div>
+          <a href="https://nimmerland-freilichtspiele.ch" target="_blank" rel="noopener" class="prod-btn">Infos</a>
+        </div>
+      </div>
+
+      <!-- 3 Gift & Gnade — Bild links -->
+      <div class="produktion">
+        <div class="prod-bild">
+          <img src="plakate/Titelbild-Gift-und-Gnade.jpg" alt="Gift und Gnade" />
+        </div>
+        <div class="prod-text">
+          <p class="prod-rolle">Konzept &amp; Regie</p>
+          <h2 class="prod-titel">Gift &amp; Gnade</h2>
+          <div class="prod-trennlinie"></div>
+          <div class="prod-info">
+            Ein Stück vom Sterben und Überleben.<br>
+            Lot Vekemans' «Gift. Eine Ehegeschichte» mit anschliessendem Dialog.<br>
+            Spiel: Lilian Naef und Markus Amrein.<br>
+            <br>
+            Nächste öffentliche Termine:<br>
+            Kunsthaus Interlaken — 20. Oktober 2026<br>
+            Bremgartenfriedhof Bern — 27. Oktober 2026<br>
+            Ostermundigen — 13. November 2026
+          </div>
+          <a href="https://mtlproduktionen.ch/produktionen/gift-und-gnade" target="_blank" rel="noopener" class="prod-btn">Infos</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- Ende .produktionen -->
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Eva Mann</span>
+      <div class="footer-links">
+        <a href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+      <a href="https://www.linkedin.com/in/eva-mann-21b8b833/" target="_blank" rel="noopener" class="footer-linkedin">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.985V9h3.114v1.561h.046c.434-.82 1.492-1.684 3.07-1.684 3.284 0 3.888 2.161 3.888 4.971v6.604zM5.337 7.433a1.805 1.805 0 1 1 0-3.61 1.805 1.805 0 0 1 0 3.61zm1.558 13.019H3.779V9h3.116v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <span class="footer-copy">© Eva Mann</span>
+    </div>
+  </footer>
+
+  <!-- ══ JS ══ -->
+  <script>
+    function toggleMobileNav() {
+      document.getElementById('mobile-drawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    const pg = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-list a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === pg);
+    });
+  </script>
+
+</body>
+</html>
